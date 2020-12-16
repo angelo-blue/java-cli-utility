@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Configuration status is the level for log4j itself -->
+<Configuration status="WARN">
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d [%t] %m%n" />
+    </Console>
+
+    <RollingFile name="logFile" fileName="./out.log"
+      filePattern="out-%d{yyyyMMdd}-%i.log.gz">
+      <PatternLayout>
+        <Pattern>[%p] %d %c %M - %m%n</Pattern>
+      </PatternLayout>
+      <Policies>
+        <TimeBasedTriggeringPolicy
+          interval="1" />
+      </Policies>
+      <DefaultRolloverStrategy max="5" />
+    </RollingFile>
+
+  </Appenders>
+
+  <Loggers>
+    <Logger name="org.mikev" level="debug" additivity="false">
+      <AppenderRef ref="Console" level="debug" />
+      <AppenderRef ref="logFile" level="warn" />
+    </Logger>
+    <Root level="info">
+      <AppenderRef ref="Console" />
+      <AppenderRef ref="Console" level="warn"/>
+    </Root>
+  </Loggers>
+</Configuration>
